@@ -17,7 +17,10 @@ lê os sensores, decide a irrigação na própria placa e conversa com a nuvem v
 ## ✨ Funcionalidades
 
 - 🌡️ **Monitoramento** de temperatura, umidade do ar, umidade do solo e luminosidade
-- 💧 **Irrigação automática na borda (edge computing):** se a umidade do solo cair abaixo do `umi_min` da cultura, a bomba liga; caso contrário, desliga
+- 💧 **Irrigação automática na borda (edge computing):** se a umidade do solo cair abaixo do `umi_min` da cultura, a bomba rega em **pulsos de no máximo 3 s**, com pausa mínima de 60 s entre regas automáticas para a água se espalhar antes de medir de novo (evita encharcar)
+- ⏱️ **Rega manual também limitada a 3 s** — a bomba sempre desliga sozinha
+- 📴 **Modo offline:** sem Wi-Fi/broker a estufa continua lendo e irrigando, e registra no log cada leitura (`[OFFLINE] Leitura registrada -> ...`)
+- 🟢 **Status online/offline** em `estufa/status` com *last will* (o broker avisa se a placa cair)
 - 🌿 **Limites por cultura** recebidos pelo app e salvos na flash (`config_estufa.json`), mantidos após reinícios
 - 🕹️ **Comandos manuais** para ligar/desligar a bomba remotamente
 - 🔐 **MQTT com TLS** (porta 8883) e reconexão automática ao broker
@@ -75,7 +78,9 @@ esp32-config/
 |-------------------|-------------------|------------------------------------------------|
 | `estufa/sensores` | ESP32 → broker    | JSON com as leituras, a cada 10 s              |
 | `estufa/config`   | broker → ESP32    | JSON com os limites da cultura selecionada     |
-| `estufa/comandos` | broker → ESP32    | Texto: `LIGAR_BOMBA` ou `DESLIGAR_BOMBA`       |
+| `estufa/comandos` | broker → ESP32    | Texto: `LIGAR_BOMBA` (rega de 3 s) ou `DESLIGAR_BOMBA` |
+| `estufa/bomba`    | ESP32 → broker    | `LIGADA` / `DESLIGADA` (retido)                |
+| `estufa/status`   | ESP32 → broker    | `online` / `offline` (retido, *last will*)     |
 
 <details>
 <summary>📄 Exemplos de payload</summary>

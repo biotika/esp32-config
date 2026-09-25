@@ -1,18 +1,14 @@
 # Configurações do Sistema
 # Wi-Fi
-# WIFI_SSID = "RedeInferior"
-# WIFI_PASSWORD = "04121417"
-
-WIFI_SSID = "JESUS"
-WIFI_PASSWORD = "CESARPRI2008"
-
+WIFI_SSID = "SUA_REDE"
+WIFI_PASSWORD = "SUA_SENHA"
 
 # Broker MQTT
-MQTT_BROKER = "c5f638bd9b894b7591b3df0cab6ee925.s1.eu.hivemq.cloud"
+MQTT_BROKER = "SEU_CLUSTER.s1.eu.hivemq.cloud"
 MQTT_PORT = 8883
 MQTT_CLIENT_ID = "estufa_esp32_device"
-MQTT_USER = "estufa_esp32"
-MQTT_PASSWORD = "mqtt@estuf4"
+MQTT_USER = "SEU_USUARIO"
+MQTT_PASSWORD = "SUA_SENHA_MQTT"
 
 # Tópicos MQTT
 TOPICO_SENSORES = "estufa/sensores"
